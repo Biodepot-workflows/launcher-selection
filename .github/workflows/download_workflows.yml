@@ -1,0 +1,38 @@
+name: Download_Workflows
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code repository
+        uses: actions/checkout@v4
+      - name: Create base workflow folders
+        run: |
+          rm -rf DNA/*
+          rm -rf RNA/*
+          rm -rf general/*
+          rm -rf nanopore/*
+          rm -rf serverless/*
+          mkdir tmp
+      - name: Add GDC_dna_seq workflow
+        run: |
+          cd tmp
+          wget https://github.com/Biodepot-workflows/GDC-dna-seq/tarball/main -O gdc_dna_seq.tgz
+          tar -xzf gdc_dna_seq.tgz
+          rm gdc_dna_seq.tgz
+          cd $(ls)/workflow
+          mv GDC_dna_seq ../../../DNA/GDC_dna_seq
+          cd ../..
+          rm -rf *
+          cd ..
+      - name: Remove tmp folder
+        run: |
+          rm -rf tmp
+      - name: Commit and push workflows
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git add .
+          git commit -am "Update workflows to current versions."
+          git push
