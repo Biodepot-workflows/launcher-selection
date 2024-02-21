@@ -1,0 +1,26 @@
+name: Github_Files
+on:
+  workflow_run:
+    workflows: [Download_Workflows]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Convert files structure to text
+        run: |
+          git ls-tree -r -t HEAD | awk '{ print $2 " " $4 }' > files.txt
+      - name: Calculate sha256sum of folders containing .ows files
+        run: |
+          find . -type f -name '*.ows' -printf '%h\n' | LC_ALL=C sort -u --ignore-case | while read -r dir; do hash=$(./hashDir.sh $dir ); echo "$hash $dir"; done > hash.txt
+      - name: Commit and push generate files
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git add files.txt hash.txt
+          git commit -m "Updated files.txt and hash.txt."
+          git push
