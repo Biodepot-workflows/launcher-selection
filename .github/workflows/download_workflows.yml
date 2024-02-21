@@ -37,6 +37,17 @@ jobs:
           cd ../..
           rm -rf *
           cd ..
+      - name: Add GDC_mRNA_multi_dr32chr22 workflow
+        run: |
+          cd tmp
+          wget https://github.com/Biodepot-workflows/GDC-mRNA-multi-dr32chr22/tarball/main -O gdc_mrna_multi_dr32chr22.tgz
+          tar -xzf gdc_mrna_multi_dr32chr22.tgz
+          rm gdc_mrna_multi_dr32chr22.tgz
+          cd $(ls)/workflow
+          mv GDC_mRNA_multi_dr32chr22 ../../../RNA/GDC_mRNA_multi_dr32chr22
+          cd ../..
+          rm -rf *
+          cd ..
       - name: Remove tmp folder
         run: |
           rm -rf tmp
