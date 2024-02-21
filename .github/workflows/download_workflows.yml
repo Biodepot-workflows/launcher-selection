@@ -59,6 +59,17 @@ jobs:
           cd ../..
           rm -rf *
           cd ..
+      - name: Add focal_adhesion_segmentation workflow
+        run: |
+          cd tmp
+          wget https://github.com/Biodepot-workflows/focal-adhesion-segmentation/tarball/main -O focal_adhesion_segmentation.tgz
+          tar -xzf focal_adhesion_segmentation.tgz
+          rm focal_adhesion_segmentation.tgz
+          cd $(ls)/workflow
+          mv focal_adhesion_segmentation ../../../general/focal_adhesion_segmentation
+          cd ../..
+          rm -rf *
+          cd ..
       - name: Remove tmp folder
         run: |
           rm -rf tmp
