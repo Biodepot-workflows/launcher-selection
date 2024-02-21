@@ -48,6 +48,17 @@ jobs:
           cd ../..
           rm -rf *
           cd ..
+      - name: Add salmon_demo workflow
+        run: |
+          cd tmp
+          wget https://github.com/Biodepot-workflows/salmon-demo/tarball/main -O salmon_demo.tgz
+          tar -xzf salmon_demo.tgz
+          rm salmon_demo.tgz
+          cd $(ls)/workflows
+          mv salmon_demo ../../../RNA/salmon_demo
+          cd ../..
+          rm -rf *
+          cd ..
       - name: Remove tmp folder
         run: |
           rm -rf tmp
