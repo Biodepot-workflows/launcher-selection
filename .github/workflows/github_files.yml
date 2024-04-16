@@ -16,7 +16,8 @@ jobs:
           git ls-tree -r -t HEAD | awk '{ print $2 " " $4 }' > files.txt
       - name: Calculate sha256sum of folders containing .ows files
         run: |
-          find . -type f -name '*.ows' -printf '%h\n' | LC_ALL=C sort -u --ignore-case | while read -r dir; do hash=$(./hashDir.sh $dir ); echo "$hash $dir"; done > hash.txt
+          docker pull biodepot/launcher-utils:1.0
+          find . -type f -name '*.ows' -printf '%h\n' | LC_ALL=C sort -u --ignore-case | while read -r dir; do hash=$(docker run biodepot/launcher-utils:1.0 "hash" $dir); echo "$hash $dir"; done > hash.txt
       - name: Commit and push generate files
         run: |
           git config --global user.email "action@github.com"
