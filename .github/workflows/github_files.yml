@@ -17,7 +17,7 @@ jobs:
       - name: Calculate sha256sum of folders containing .ows files
         run: |
           docker pull biodepot/launcher-utils:latest
-          find . -type f -name '*.ows' -printf '%h\n' | LC_ALL=C sort -u --ignore-case | while read -r dir; do hash=$(docker run -v ".":"/workspace/mnt" biodepot/launcher-utils:1.0 "hash" /workspace/mnt/$dir); echo "$hash $dir"; done > hash.txt
+          find . -type f -name '*.ows' -printf '%h\n' | LC_ALL=C sort -u --ignore-case | while read -r dir; do hash=$(docker run -v ".":"/workspace/mnt" biodepot/launcher-utils:latest "hash" /workspace/mnt/$dir); echo "$hash $dir"; done > hash.txt
       - name: Commit and push generate files
         run: |
           git config --global user.email "action@github.com"info
