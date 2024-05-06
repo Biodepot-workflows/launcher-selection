@@ -15,28 +15,17 @@ jobs:
           rm -rf nanopore/*
           rm -rf serverless/*
           mkdir tmp
-      # - name: Add GDC_dna_seq workflow
-      #   run: |
-      #     cd tmp
-      #     wget https://github.com/Biodepot-workflows/GDC-dna-seq/tarball/main -O gdc_dna_seq.tgz
-      #     tar -xzf gdc_dna_seq.tgz
-      #     rm gdc_dna_seq.tgz
-      #     cd $(ls)/workflow
-      #     mv GDC_dna_seq ../../../DNA/GDC_dna_seq
-      #     cd ../..
-      #     rm -rf *
-      #     cd ..
-      # - name: Add GDC_dna_seq_no_gen3 workflow
-      #   run: |
-      #     cd tmp
-      #     wget https://github.com/Biodepot-workflows/GDC-dna-seq-no-gen3/tarball/main -O gdc_dna_seq_no_gen3.tgz
-      #     tar -xzf gdc_dna_seq_no_gen3.tgz
-      #     rm gdc_dna_seq_no_gen3.tgz
-      #     cd $(ls)/workflow
-      #     mv GDC_dna_seq_no_gen3 ../../../DNA/GDC_dna_seq_no_gen3
-      #     cd ../..
-      #     rm -rf *
-      #     cd ..
+      - name: Add GDC_dna_seq_no_gen3_slim_fast workflow
+        run: |
+          cd tmp
+          wget https://github.com/Biodepot-workflows/GDC-dna-seq-no-gen3-slim-fast/tarball/main -O GDC_dna_seq_no_gen3_slim_fast.tgz
+          tar -xzf GDC_dna_seq_no_gen3_slim_fast.tgz
+          rm GDC_dna_seq_no_gen3_slim_fast.tgz
+          cd $(ls)/workflow
+          mv GDC_dna_seq_no_gen3_slim_fast ../../../DNA/GDC_dna_seq_no_gen3_slim_fast
+          cd ../..
+          rm -rf *
+          cd ..
       - name: Add GDC_mRNA_multi_dr32chr22 workflow
         run: |
           cd tmp
