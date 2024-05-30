@@ -1,5 +1,7 @@
 name: Download_Workflows
-on: [push]
+on:
+  repository_dispatch:
+    types: [trigger-workflow]
 
 jobs:
   build:
